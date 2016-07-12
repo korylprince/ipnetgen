@@ -26,12 +26,17 @@ type IPNetGenerator struct {
 	current net.IP
 }
 
-//NewIPNetGenerator creates a new IPNetGenerator from a CIDR string, or an error if the CIDR is invalid.
-func NewIPNetGenerator(cidr string) (*IPNetGenerator, error) {
+//New creates a new IPNetGenerator from a CIDR string, or an error if the CIDR is invalid.
+func New(cidr string) (*IPNetGenerator, error) {
 	_, ipNet, err := net.ParseCIDR(cidr)
 	if err != nil {
 		return nil, err
 	}
+	return NewFromIPNet(ipNet), nil
+}
+
+//NewFromIPNet creates a new IPNetGenerator from a *net.IPNet
+func NewFromIPNet(ipNet *net.IPNet) *IPNetGenerator {
 	ones, bits := ipNet.Mask.Size()
 
 	newIP := make(net.IP, len(ipNet.IP))
@@ -45,7 +50,7 @@ func NewIPNetGenerator(cidr string) (*IPNetGenerator, error) {
 		count:   count,
 		idx:     big.NewInt(0),
 		current: newIP,
-	}, nil
+	}
 }
 
 //Next returns the next net.IP in the subnet

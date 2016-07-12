@@ -31,21 +31,21 @@ func TestIncrement(t *testing.T) {
 
 func TestNewIPNetGenerator(t *testing.T) {
 	//bad CIDRs
-	_, err := NewIPNetGenerator("stuff")
+	_, err := New("stuff")
 	if err == nil {
 		t.Errorf("Expected error, got nil for CIDR: stuff")
 	}
-	_, err = NewIPNetGenerator("192.168.100.10")
+	_, err = New("192.168.100.10")
 	if err == nil {
 		t.Errorf("Expected error, got nil for CIDR: 192.168.100.10")
 	}
-	_, err = NewIPNetGenerator("::1")
+	_, err = New("::1")
 	if err == nil {
 		t.Errorf("Expected error, got nil for CIDR: ::1")
 	}
 
 	//good CIDRs
-	gen, err := NewIPNetGenerator("192.168.100.0/24")
+	gen, err := New("192.168.100.0/24")
 	if err != nil {
 		t.Errorf("Unexpected error with CIDR 192.168.100.0/24: %#v", err)
 	}
@@ -58,7 +58,7 @@ func TestNewIPNetGenerator(t *testing.T) {
 		t.Errorf("Expected: count = 256, Got: count = %s", gen.count.String())
 	}
 
-	gen, err = NewIPNetGenerator("10.10.10.245/25")
+	gen, err = New("10.10.10.245/25")
 	if err != nil {
 		t.Errorf("Unexpected error with CIDR 192.168.100.0/24: %#v", err)
 	}
@@ -71,7 +71,7 @@ func TestNewIPNetGenerator(t *testing.T) {
 		t.Errorf("Expected: count = 128, Got: count = %s", gen.count.String())
 	}
 
-	gen, err = NewIPNetGenerator("fe80::/112")
+	gen, err = New("fe80::/112")
 	if err != nil {
 		t.Errorf("Unexpected error with CIDR fe80::/112: %#v", err)
 	}
@@ -84,7 +84,7 @@ func TestNewIPNetGenerator(t *testing.T) {
 		t.Errorf("Expected: count = 65536, Got: count = %s", gen.count.String())
 	}
 
-	gen, err = NewIPNetGenerator("0100::/64")
+	gen, err = New("0100::/64")
 	if err != nil {
 		t.Errorf("Unexpected error with CIDR 0100::/64: %#v", err)
 	}
@@ -99,7 +99,7 @@ func TestNewIPNetGenerator(t *testing.T) {
 }
 
 func TestNextIPv4(t *testing.T) {
-	gen, err := NewIPNetGenerator("192.168.100.0/24")
+	gen, err := New("192.168.100.0/24")
 	if err != nil {
 		t.Errorf("Unexpected error with CIDR 192.168.100.0/24: %#v", err)
 	}
@@ -134,7 +134,7 @@ func TestNextIPv4(t *testing.T) {
 }
 
 func TestNextIPv6(t *testing.T) {
-	gen, err := NewIPNetGenerator("fe80::/112")
+	gen, err := New("fe80::/112")
 	if err != nil {
 		t.Errorf("Unexpected error with CIDR fe80::/112: %#v", err)
 	}

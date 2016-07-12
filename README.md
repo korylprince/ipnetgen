@@ -4,7 +4,7 @@
 
 Package ipnetgen provides a way to iterate over the addresses in a subnet:
 
-    gen, err := NewIPNetGenerator("192.168.100.0/24")
+    gen, err := New("192.168.100.0/24")
     if err != nil {
     	//do something with err
     }
@@ -34,13 +34,20 @@ type IPNetGenerator struct {
 
 IPNetGenerator is a net.IPnet wrapper that you can iterate over
 
-#### func  NewIPNetGenerator
+#### func  New
 
 ```go
-func NewIPNetGenerator(cidr string) (*IPNetGenerator, error)
+func New(cidr string) (*IPNetGenerator, error)
 ```
-NewIPNetGenerator creates a new IPNetGenerator from a CIDR string, or an error
-if the CIDR is invalid.
+New creates a new IPNetGenerator from a CIDR string, or an error if the CIDR is
+invalid.
+
+#### func  NewFromIPNet
+
+```go
+func NewFromIPNet(ipNet *net.IPNet) *IPNetGenerator
+```
+NewFromIPNet creates a new IPNetGenerator from a *net.IPNet
 
 #### func (*IPNetGenerator) Next
 

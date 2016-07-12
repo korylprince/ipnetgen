@@ -1,7 +1,7 @@
 /*
 Package ipnetgen provides a way to iterate over the addresses in a subnet:
 
-	gen, err := NewIPNetGenerator("192.168.100.0/24")
+	gen, err := New("192.168.100.0/24")
 	if err != nil {
 		//do something with err
 	}
